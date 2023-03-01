@@ -192,7 +192,6 @@ class TemporalAggregation:
         n_data.columns = np.arange(1, self.n_data.shape[1] + 1)
 
 
-
         # printing signature of data file
         dp.print_header(Path(__file__).parent/'kmedoid_clustering'/'header.txt', dat_file)
         # printing SET DIMENSIONS
@@ -210,6 +209,11 @@ class TemporalAggregation:
         dp.newline(dat_file)
         # printing param n_data in ampl syntax
         dp.print_df(df=dp.ampl_syntax(n_data), out_path=dat_file, name='param Ndata :')
+        
+        #SQadded: Saving the data_xx.dat file in a standard csv format for later use
+        weights.to_csv(self.dat_dir / 'weights.csv')
+        n_data.to_csv(self.dat_dir / 'ndata.csv',index=False,header=False)
+        
         return
 
     def kmedoid_clustering(self, ampl_path=None):

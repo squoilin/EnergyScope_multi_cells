@@ -649,8 +649,8 @@ class Esmc:
             # mod and data files ref path
             mod_ref = self.project_dir / 'esmc' / 'energy_model' / 'ESMC_model_AMPL.mod'
             data_ref = [ref_dir / self.space_id / ('ESMC_' + str(self.nbr_td) + 'TD.dat'),
-                        ref_dir / 'ESMC_indep.dat',
-                        ref_dir / self.space_id / 'ESMC_regions.dat']
+                        self.project_dir / 'esmc' / 'energy_model' / 'dat_files' / 'ESMC_indep.dat',
+                        self.project_dir / 'esmc' / 'energy_model' / 'dat_files' / self.space_id / 'ESMC_regions.dat']
 
             # copy the files from ref_dir to case_study directory
             shutil.copyfile(mod_ref, mod_path)

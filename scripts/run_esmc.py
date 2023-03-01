@@ -3,17 +3,17 @@ from pathlib import Path
 
 # additional line for VS studio
 import sys
-sys.path.append('/home/pthiran/EnergyScope_multi_cells/')
+#sys.path.append('/home/pthiran/EnergyScope_multi_cells/')
 from esmc import Esmc
 
 
-tds = [14]  # np.concatenate((np.arange(2,62,2),np.arange(62,112,4),np.array([120,140,160,180,365])))
+tds = [2]  # np.concatenate((np.arange(2,62,2),np.arange(62,112,4),np.array([120,140,160,180,365])))
 
 for t in tds:
     print('Nbr_TDs', t)
 
     # specify ampl_path (set None if ampl is in Path environment variable or the path to ampl if not)
-    ampl_path = Path(r'C:\Users\pathiran\ampl_mswin64')
+    ampl_path = Path(r'/home/sylvain/progs/ampl/ampl_linux-intel64')
 
     # info to switch off unused constraints
     gwp_limit_overall = None
@@ -21,7 +21,7 @@ for t in tds:
     f_perc = False
 
     # define configuration
-    config = {'case_study': 'test',
+    config = {'case_study': 'test_quick',
               'comment': 'none',
               'regions_names': ['ES-PT', 'FR', 'IE-UK'],
               'ref_region': 'FR',
@@ -47,7 +47,8 @@ for t in tds:
     my_model.print_td_data()
 
     # Set the Energy System Optimization Model (ESOM) as an ampl formulated problem
-    my_model.set_esom(ampl_path=ampl_path)
+    ref_dir = my_model.project_dir / 'case_studies' / 'dat_files' 
+    my_model.set_esom(ampl_path=ampl_path,ref_dir=ref_dir)
 
     # Solving the ESOM
     my_model.solve_esom()
